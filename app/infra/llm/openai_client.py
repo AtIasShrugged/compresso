@@ -23,9 +23,9 @@ class OpenAIClient:
         Returns:
             Generated summary text
         """
-        # Extract model name from options.model (format: "openai:openai-4nano")
+        # Extract model name from options.model (format: "openai:gpt-4o-nano")
         model_parts = options.model.split(":", 1)
-        model_name = model_parts[1] if len(model_parts) > 1 else "openai-4nano"
+        model_name = model_parts[1] if len(model_parts) > 1 else "gpt-4o-nano"
         
         # Format prompt with template
         prompt = prompt_template.format(content=text)

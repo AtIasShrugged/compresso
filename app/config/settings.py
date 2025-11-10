@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     cache_max_items: int = Field(default=50, alias="CACHE_MAX_ITEMS")
     
     # LLM Providers
-    llm_default: str = Field(default="openai:openai-4nano", alias="LLM_DEFAULT")
+    llm_default: str = Field(default="openai:gpt-4o-nano", alias="LLM_DEFAULT")
     openai_api_key: str = Field(default="", alias="OPENAI_API_KEY")
     
     # Whisper
