@@ -116,7 +116,6 @@ async def index(request: Request):
     context = {
         "request": request,
         "username": username,
-        "default_model": settings.llm_default,
         **get_translations(request)
     }
     return templates.TemplateResponse("index.html", context)
@@ -127,13 +126,15 @@ async def summarize(
     request: Request,
     mode: str = Form(...),
     input_data: str = Form(...),
-    detail: str = Form(...),
-    model: str = Form(...)
+    detail: str = Form(...)
 ):
     """Handle summarization request."""
     require_auth(request)
     
     try:
+        # Always use gpt-4o-mini
+        model = "openai:gpt-4o-mini"
+        
         # Parse options
         options = SummaryOptions(
             mode=SummaryMode(mode),

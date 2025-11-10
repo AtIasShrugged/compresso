@@ -29,8 +29,7 @@ class Settings(BaseSettings):
     redis_url: str = Field(default="redis://localhost:6379/0", alias="REDIS_URL")
     cache_max_items: int = Field(default=50, alias="CACHE_MAX_ITEMS")
     
-    # LLM Providers
-    llm_default: str = Field(default="openai:gpt-4o-nano", alias="LLM_DEFAULT")
+    # LLM Provider
     openai_api_key: str = Field(default="", alias="OPENAI_API_KEY")
     
     # Whisper
