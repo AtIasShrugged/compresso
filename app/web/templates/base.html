@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ _('app_name') }}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/">{{ _('app_name') }}</a>
+                </div>
+                <nav class="nav">
+                    <button id="theme-toggle" class="btn-icon" aria-label="Toggle theme">
+                        <span class="theme-icon">☀️</span>
+                    </button>
+                    <select id="lang-select" class="lang-select">
+                        <option value="en" {% if locale == 'en' %}selected{% endif %}>EN</option>
+                        <option value="ru" {% if locale == 'ru' %}selected{% endif %}>RU</option>
+                    </select>
+                    {% if username is defined %}
+                    <a href="/history" class="btn-link">{{ _('history') }}</a>
+                    <form action="/logout" method="post" style="display: inline;">
+                        <button type="submit" class="btn-link">{{ _('logout') }}</button>
+                    </form>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>{{ _('app_name') }} • {{ _('tagline') }}</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/theme.js"></script>
+    <script src="/static/js/i18n.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

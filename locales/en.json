@@ -1,0 +1,47 @@
+{
+  "app_name": "Compresso",
+  "tagline": "Fast LLM Summarizer",
+  "login": "Login",
+  "logout": "Logout",
+  "username": "Username",
+  "password": "Password",
+  "login_error": "Invalid username or password",
+  "login_required": "Please log in to continue",
+  
+  "mode_text": "Text",
+  "mode_url": "Article URL",
+  "mode_youtube": "YouTube",
+  
+  "detail_short": "Short",
+  "detail_medium": "Medium",
+  "detail_long": "Long",
+  
+  "detail_level": "Detail Level",
+  "model": "Model",
+  "summarize": "Summarize",
+  
+  "input_text_placeholder": "Paste your text here...",
+  "input_url_placeholder": "https://example.com/article",
+  "input_youtube_placeholder": "https://youtube.com/watch?v=...",
+  
+  "summary_result": "Summary Result",
+  "copy": "Copy",
+  "save": "Save",
+  "back": "Back",
+  "delete": "Delete",
+  "open": "Open",
+  
+  "history": "History",
+  "recent_summaries": "Recent Summaries",
+  "no_history": "No summaries yet",
+  
+  "processing": "Processing...",
+  "error": "Error",
+  "success": "Success",
+  
+  "copied": "Copied to clipboard!",
+  "saved": "Saved to history",
+  
+  "theme_light": "Light",
+  "theme_dark": "Dark"
+}

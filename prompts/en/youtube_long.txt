@@ -1,0 +1,9 @@
+Create a detailed, structured video summary.
+• At the beginning of each point, indicate the timestamp in [mm:ss] format if available
+• Format as a bulleted list with emojis for visual appeal
+• Avoid word-for-word retelling, highlight semantic blocks and key conclusions
+• Group related content into logical sections
+• Include all major topics covered
+
+Transcript text:
+{content}

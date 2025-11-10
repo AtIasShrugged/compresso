@@ -1,0 +1,6 @@
+Create a moderate summary of the following text. Include:
+• Main points and key arguments (8-10 bullet points)
+• Supporting details where relevant
+• Use emojis to make it more engaging
+
+{content}

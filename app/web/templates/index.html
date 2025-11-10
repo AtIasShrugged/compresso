@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-form">
+    <h1>{{ _('app_name') }}</h1>
+    <p class="tagline">{{ _('tagline') }}</p>
+    
+    <form action="/summarize" method="post" id="summarize-form">
+        <!-- Mode tabs -->
+        <div class="tabs">
+            <input type="radio" name="mode" value="text" id="mode-text" checked>
+            <label for="mode-text" class="tab">{{ _('mode_text') }}</label>
+            
+            <input type="radio" name="mode" value="url" id="mode-url">
+            <label for="mode-url" class="tab">{{ _('mode_url') }}</label>
+            
+            <input type="radio" name="mode" value="youtube" id="mode-youtube">
+            <label for="mode-youtube" class="tab">{{ _('mode_youtube') }}</label>
+        </div>
+        
+        <!-- Input fields -->
+        <div class="tab-content">
+            <div class="tab-pane active" data-mode="text">
+                <textarea name="input_data" id="input-text" rows="10" 
+                          placeholder="{{ _('input_text_placeholder') }}" required></textarea>
+            </div>
+            
+            <div class="tab-pane" data-mode="url">
+                <input type="url" name="input_data" id="input-url" 
+                       placeholder="{{ _('input_url_placeholder') }}">
+            </div>
+            
+            <div class="tab-pane" data-mode="youtube">
+                <input type="text" name="input_data" id="input-youtube" 
+                       placeholder="{{ _('input_youtube_placeholder') }}">
+            </div>
+        </div>
+        
+        <!-- Options -->
+        <div class="form-options">
+            <div class="form-group">
+                <label>{{ _('detail_level') }}</label>
+                <div class="radio-group">
+                    <input type="radio" name="detail" value="short" id="detail-short">
+                    <label for="detail-short">{{ _('detail_short') }}</label>
+                    
+                    <input type="radio" name="detail" value="medium" id="detail-medium" checked>
+                    <label for="detail-medium">{{ _('detail_medium') }}</label>
+                    
+                    <input type="radio" name="detail" value="long" id="detail-long">
+                    <label for="detail-long">{{ _('detail_long') }}</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="model">{{ _('model') }}</label>
+                <select name="model" id="model">
+                    <option value="openai:gpt-4o-mini" selected>GPT-4o Mini</option>
+                    <option value="openai:gpt-4o">GPT-4o</option>
+                    <option value="anthropic:claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+                    <option value="anthropic:claude-3-haiku-20240307">Claude 3 Haiku</option>
+                </select>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-large">
+            {{ _('summarize') }}
+        </button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Tab switching logic
+document.querySelectorAll('input[name="mode"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+        const mode = e.target.value;
+        
+        // Hide all tab panes
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('active');
+            const input = pane.querySelector('input, textarea');
+            if (input) input.removeAttribute('required');
+        });
+        
+        // Show selected tab pane
+        const activePane = document.querySelector(`.tab-pane[data-mode="${mode}"]`);
+        if (activePane) {
+            activePane.classList.add('active');
+            const input = activePane.querySelector('input, textarea');
+            if (input) {
+                input.setAttribute('required', 'required');
+                input.focus();
+            }
+        }
+    });
+});
+
+// Form submission loading state
+document.getElementById('summarize-form').addEventListener('submit', (e) => {
+    const button = e.target.querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.textContent = '{{ _("processing") }}';
+});
+</script>
+{% endblock %}

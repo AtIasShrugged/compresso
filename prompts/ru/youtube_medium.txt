@@ -1,0 +1,7 @@
+Create a moderate summary of this video transcript. Include:
+• 8-10 main points from the video
+• Use emojis to make it engaging
+• Focus on key messages and takeaways
+
+Transcript:
+{content}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('error') }} - {{ _('app_name') }}{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <h1>{{ _('error') }}</h1>
+    <div class="alert alert-error">
+        <p>{{ error }}</p>
+    </div>
+    <a href="/" class="btn btn-primary">{{ _('back') }}</a>
+</div>
+{% endblock %}

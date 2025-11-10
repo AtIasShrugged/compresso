@@ -1,0 +1,47 @@
+{
+  "app_name": "Compresso",
+  "tagline": "Быстрый суммаризатор на LLM",
+  "login": "Войти",
+  "logout": "Выйти",
+  "username": "Имя пользователя",
+  "password": "Пароль",
+  "login_error": "Неверное имя пользователя или пароль",
+  "login_required": "Пожалуйста, войдите для продолжения",
+  
+  "mode_text": "Текст",
+  "mode_url": "Статья по URL",
+  "mode_youtube": "YouTube",
+  
+  "detail_short": "Кратко",
+  "detail_medium": "Средне",
+  "detail_long": "Подробно",
+  
+  "detail_level": "Уровень детализации",
+  "model": "Модель",
+  "summarize": "Суммаризовать",
+  
+  "input_text_placeholder": "Вставьте ваш текст сюда...",
+  "input_url_placeholder": "https://example.com/article",
+  "input_youtube_placeholder": "https://youtube.com/watch?v=...",
+  
+  "summary_result": "Результат",
+  "copy": "Копировать",
+  "save": "Сохранить",
+  "back": "Назад",
+  "delete": "Удалить",
+  "open": "Открыть",
+  
+  "history": "История",
+  "recent_summaries": "Последние саммари",
+  "no_history": "Пока нет саммари",
+  
+  "processing": "Обработка...",
+  "error": "Ошибка",
+  "success": "Успешно",
+  
+  "copied": "Скопировано в буфер обмена!",
+  "saved": "Сохранено в историю",
+  
+  "theme_light": "Светлая",
+  "theme_dark": "Тёмная"
+}

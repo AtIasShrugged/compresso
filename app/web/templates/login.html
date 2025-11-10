@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('login') }} - {{ _('app_name') }}{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h1>{{ _('app_name') }}</h1>
+        <p class="tagline">{{ _('tagline') }}</p>
+        
+        {% if error %}
+        <div class="alert alert-error">
+            {{ _('login_error') }}
+        </div>
+        {% endif %}
+        
+        <form action="/login" method="post" class="auth-form">
+            <div class="form-group">
+                <label for="username">{{ _('username') }}</label>
+                <input type="text" id="username" name="username" required autofocus>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">{{ _('password') }}</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">{{ _('login') }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+Create a comprehensive and detailed summary of this article. Include:
+• All major points, arguments, and conclusions
+• Supporting evidence and examples
+• Context and background information
+• Structure the summary logically with clear sections
+• Use emojis and formatting for better readability
+
+{content}

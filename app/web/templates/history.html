@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('history') }} - {{ _('app_name') }}{% endblock %}
+
+{% block content %}
+<div class="history-container">
+    <h1>{{ _('recent_summaries') }}</h1>
+    
+    {% if summaries %}
+    <div class="summaries-list">
+        {% for summary in summaries %}
+        <div class="summary-card">
+            <div class="summary-header">
+                <span class="badge">{{ summary.mode }}</span>
+                <span class="badge">{{ summary.options.detail }}</span>
+                <span class="summary-date">{{ summary.created_at.strftime('%Y-%m-%d %H:%M') if summary.created_at else '' }}</span>
+            </div>
+            <div class="summary-preview">
+                {{ summary.content_md[:200] }}...
+            </div>
+            <div class="summary-actions">
+                <button onclick="viewSummary('{{ summary.id }}')" class="btn btn-small">
+                    {{ _('open') }}
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-results">{{ _('no_history') }}</p>
+    {% endif %}
+    
+    <div class="back-link">
+        <a href="/" class="btn btn-secondary">{{ _('back') }}</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function viewSummary(id) {
+    // For now, just go back to home
+    // In a full implementation, this would show the specific summary
+    window.location.href = '/';
+}
+</script>
+{% endblock %}

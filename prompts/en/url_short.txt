@@ -1,0 +1,3 @@
+Create a brief summary of this article in 3-5 bullet points. Focus on the main ideas and key takeaways.
+
+{content}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('summary_result') }} - {{ _('app_name') }}{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <div class="result-header">
+        <h1>{{ _('summary_result') }}</h1>
+        <div class="result-meta">
+            <span class="badge">{{ result.mode }}</span>
+            <span class="badge">{{ result.options.detail }}</span>
+            <span class="badge">{{ result.options.model.split(':')[1] if ':' in result.options.model else result.options.model }}</span>
+        </div>
+    </div>
+    
+    <div class="result-content markdown-content">
+        {{ result.content_md | safe }}
+    </div>
+    
+    <div class="result-actions">
+        <button onclick="copyToClipboard()" class="btn btn-secondary">
+            {{ _('copy') }}
+        </button>
+        <a href="/" class="btn btn-secondary">{{ _('back') }}</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function copyToClipboard() {
+    const content = document.querySelector('.result-content').innerText;
+    navigator.clipboard.writeText(content).then(() => {
+        alert('{{ _("copied") }}');
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+}
+</script>
+{% endblock %}
