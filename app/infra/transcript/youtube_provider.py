@@ -71,19 +71,23 @@ class YouTubeProvider:
         """
         # Run in thread pool since it's blocking
         loop = asyncio.get_event_loop()
-        transcript_list = await loop.run_in_executor(
+        api = YouTubeTranscriptApi()
+        
+        def get_transcript():
+            return api.fetch(video_id)
+        
+        fetched_transcript = await loop.run_in_executor(
             None,
-            YouTubeTranscriptApi.get_transcript,
-            video_id
+            get_transcript
         )
         
         # Format transcript with timestamps
         lines = []
         timestamps = []
         
-        for entry in transcript_list:
-            start = entry['start']
-            text = entry['text']
+        for snippet in fetched_transcript.snippets:
+            start = snippet.start
+            text = snippet.text
             minutes = int(start // 60)
             seconds = int(start % 60)
             timestamp = f"[{minutes:02d}:{seconds:02d}]"

@@ -22,7 +22,10 @@ class PromptLoader:
             Prompt template string
         """
         # Build filename: mode_detail.txt (e.g., "text_short.txt")
-        filename = f"{mode.value}_{detail.value}.txt"
+        # Note: mode and detail are already strings due to use_enum_values=True in SummaryOptions
+        mode_str = mode if isinstance(mode, str) else mode.value
+        detail_str = detail if isinstance(detail, str) else detail.value
+        filename = f"{mode_str}_{detail_str}.txt"
         filepath = self.prompts_dir / locale / filename
         
         if filepath.exists():
@@ -48,15 +51,19 @@ class PromptLoader:
     def _get_default_prompt(self, mode: SummaryMode, detail: DetailLevel) -> str:
         """Get default prompt as fallback."""
         detail_map = {
-            DetailLevel.SHORT: "brief",
-            DetailLevel.MEDIUM: "moderate",
-            DetailLevel.LONG: "detailed"
+            "short": "brief",
+            "medium": "moderate",
+            "long": "detailed"
         }
         
-        detail_desc = detail_map[detail]
+        # Handle both enum and string values
+        detail_str = detail if isinstance(detail, str) else detail.value
+        mode_str = mode if isinstance(mode, str) else mode.value
         
-        if mode == SummaryMode.YOUTUBE:
-            if detail == DetailLevel.LONG:
+        detail_desc = detail_map.get(detail_str, "moderate")
+        
+        if mode_str == "youtube":
+            if detail_str == "long":
                 return """Create a detailed, structured video summary.
 • At the beginning of each point, indicate the timestamp in [mm:ss] format.
 • Format as a bulleted list with emojis.

@@ -23,37 +23,25 @@ class OpenAIClient:
         Returns:
             Generated summary text
         """
-        # Extract model name from options.model (format: "openai:gpt-4o-mini")
+        # Extract model name from options.model (format: "openai:openai-4nano")
         model_parts = options.model.split(":", 1)
-        model_name = model_parts[1] if len(model_parts) > 1 else "gpt-4o-mini"
+        model_name = model_parts[1] if len(model_parts) > 1 else "openai-4nano"
         
         # Format prompt with template
         prompt = prompt_template.format(content=text)
         
-        # Check if using o1 reasoning model
-        is_o1_model = model_name.startswith("o1")
-        
         try:
             logger.info(f"Calling OpenAI API with model: {model_name}")
             
-            # o1 models don't support system messages and have specific parameter restrictions
-            if is_o1_model:
-                response = await self.client.chat.completions.create(
-                    model=model_name,
-                    messages=[
-                        {"role": "user", "content": f"You are a helpful assistant that creates concise and accurate summaries.\n\n{prompt}"}
-                    ]
-                )
-            else:
-                response = await self.client.chat.completions.create(
-                    model=model_name,
-                    messages=[
-                        {"role": "system", "content": "You are a helpful assistant that creates concise and accurate summaries."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.7,
-                    max_tokens=2000 if options.detail == "long" else 1000
-                )
+            response = await self.client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant that creates concise and accurate summaries."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=2000 if options.detail == "long" else 1000
+            )
             
             summary = response.choices[0].message.content
             logger.info(f"OpenAI API call successful, tokens: {response.usage.total_tokens}")

@@ -1,6 +1,5 @@
 """LLM client factory."""
 from .openai_client import OpenAIClient
-from .anthropic_client import AnthropicClient
 
 
 class LLMFactory:
@@ -23,8 +22,6 @@ class LLMFactory:
         
         if provider == "openai":
             return OpenAIClient()
-        elif provider == "anthropic":
-            return AnthropicClient()
         else:
             raise ValueError(f"Unsupported LLM provider: {provider}")
 

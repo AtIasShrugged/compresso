@@ -30,9 +30,8 @@ class Settings(BaseSettings):
     cache_max_items: int = Field(default=50, alias="CACHE_MAX_ITEMS")
     
     # LLM Providers
-    llm_default: str = Field(default="openai:gpt-4o-mini", alias="LLM_DEFAULT")
+    llm_default: str = Field(default="openai:openai-4nano", alias="LLM_DEFAULT")
     openai_api_key: str = Field(default="", alias="OPENAI_API_KEY")
-    anthropic_api_key: str = Field(default="", alias="ANTHROPIC_API_KEY")
     
     # Whisper
     whisper_mode: Literal["local", "openai"] = Field(default="local", alias="WHISPER_MODE")
