@@ -66,9 +66,10 @@ class SummarizeUseCase:
             meta=metadata
         )
         
-        # Cache the result with both cache_key (hash) and UUID
-        await self.cache_provider.set(cache_key, result)
-        await self.cache_provider.set(result.id, result)
+        # Cache the result with both cache_key (hash) for deduplication and UUID for retrieval
+        # Only the UUID is added to history to avoid duplicates
+        await self.cache_provider.set(cache_key, result, add_to_history=False)
+        await self.cache_provider.set(result.id, result, add_to_history=True)
         
         logger.info(f"Summarization completed: {result.id}")
         return result

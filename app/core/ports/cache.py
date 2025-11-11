@@ -17,12 +17,13 @@ class CacheProvider(Protocol):
         """
         ...
 
-    async def set(self, key: str, value: SummaryResult) -> None:
+    async def set(self, key: str, value: SummaryResult, add_to_history: bool = False) -> None:
         """Store summary in cache.
         
         Args:
             key: Cache key
             value: SummaryResult to cache
+            add_to_history: If True, add to recent history list
         """
         ...
 

@@ -131,6 +131,16 @@ async def summarize(
     """Handle summarization request."""
     require_auth(request)
     
+    # Validate input_data
+    if not input_data or not input_data.strip():
+        logger.error("Empty input_data received")
+        context = {
+            "request": request,
+            "error": locale_manager.get("error_empty_input", get_locale_from_request(request)),
+            **get_translations(request)
+        }
+        return templates.TemplateResponse("error.html", context, status_code=400)
+    
     try:
         # Always use gpt-4o-mini
         model = "openai:gpt-4o-mini"

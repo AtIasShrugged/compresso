@@ -21,20 +21,23 @@
         <!-- Input fields -->
         <div class="tab-content">
             <div class="tab-pane active" data-mode="text">
-                <textarea name="input_data" id="input-text" rows="10" 
+                <textarea id="input-text" rows="10" 
                           placeholder="{{ _('input_text_placeholder') }}" required></textarea>
             </div>
             
             <div class="tab-pane" data-mode="url">
-                <input type="url" name="input_data" id="input-url" 
+                <input type="url" id="input-url" 
                        placeholder="{{ _('input_url_placeholder') }}">
             </div>
             
             <div class="tab-pane" data-mode="youtube">
-                <input type="text" name="input_data" id="input-youtube" 
+                <input type="text" id="input-youtube" 
                        placeholder="{{ _('input_youtube_placeholder') }}">
             </div>
         </div>
+        
+        <!-- Hidden field for input_data that will be populated on submit -->
+        <input type="hidden" name="input_data" id="input_data_hidden">
         
         <!-- Options -->
         <div class="form-options">
@@ -89,6 +92,15 @@ document.querySelectorAll('input[name="mode"]').forEach(radio => {
 
 // Form submission loading state
 document.getElementById('summarize-form').addEventListener('submit', (e) => {
+    // Get active input value
+    const activePane = document.querySelector('.tab-pane.active');
+    const activeInput = activePane.querySelector('input, textarea');
+    const hiddenInput = document.getElementById('input_data_hidden');
+    
+    if (activeInput && hiddenInput) {
+        hiddenInput.value = activeInput.value;
+    }
+    
     const button = e.target.querySelector('button[type="submit"]');
     button.disabled = true;
     button.textContent = '{{ _("processing") }}';

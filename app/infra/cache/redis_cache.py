@@ -58,12 +58,13 @@ class RedisCache:
             logger.error(f"Error getting from cache: {e}")
             return None
     
-    async def set(self, key: str, value: SummaryResult) -> None:
+    async def set(self, key: str, value: SummaryResult, add_to_history: bool = False) -> None:
         """Store summary in cache.
         
         Args:
             key: Cache key
             value: SummaryResult to cache
+            add_to_history: If True, add to recent history list
         """
         await self.connect()
         
@@ -72,14 +73,15 @@ class RedisCache:
             data = value.model_dump_json()
             await self._client.set(self._make_key(key), data)
             
-            # Add to recent list with timestamp score
-            score = datetime.utcnow().timestamp()
-            await self._client.zadd(self.recent_zset_key, {key: score})
+            # Only add to recent list if explicitly requested (for UUID keys only)
+            if add_to_history:
+                score = datetime.utcnow().timestamp()
+                await self._client.zadd(self.recent_zset_key, {key: score})
+                
+                # Trim to max items
+                await self.trim_to_limit(self.max_items)
             
-            # Trim to max items
-            await self.trim_to_limit(self.max_items)
-            
-            logger.info(f"Cached summary with key: {key}")
+            logger.info(f"Cached summary with key: {key} (history: {add_to_history})")
             
         except Exception as e:
             logger.error(f"Error setting cache: {e}")
