@@ -1,6 +1,6 @@
-Create a moderate summary of the following text. Include:
-• Main points and key arguments (8-10 bullet points)
-• Supporting details where relevant
-• Use emojis to make it more engaging
+Создай среднее по объёму резюме следующего текста. Включи:
+• Основные мысли и ключевые аргументы (8-10 пунктов)
+• Важные детали, где это уместно
+• Используй эмодзи для лучшего восприятия
 
 {content}

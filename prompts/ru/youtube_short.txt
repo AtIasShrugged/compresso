@@ -1,4 +1,4 @@
-Create a brief summary of this video in 3-5 key points. Focus on the main message.
+Создай краткое резюме этого видео в 3-5 ключевых пунктах. Сфокусируйся на главном послании.
 
-Transcript:
+Текст транскрипта:
 {content}

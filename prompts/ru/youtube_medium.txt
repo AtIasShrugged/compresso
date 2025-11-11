@@ -1,7 +1,7 @@
-Create a moderate summary of this video transcript. Include:
-• 8-10 main points from the video
-• Use emojis to make it engaging
-• Focus on key messages and takeaways
+Создай среднее по объёму резюме транскрипта этого видео. Включи:
+• 8-10 основных пунктов из видео
+• Используй эмодзи для лучшего восприятия
+• Сфокусируйся на ключевых посланиях и выводах
 
-Transcript:
+Текст транскрипта:
 {content}

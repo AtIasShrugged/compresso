@@ -1,6 +1,6 @@
-Create a moderate summary of this article. Include:
-• Main points and key arguments (8-10 bullet points)
-• Supporting details where relevant
-• Use emojis to make it more engaging
+Создай среднее по объёму резюме этой статьи. Включи:
+• Основные мысли и ключевые аргументы (8-10 пунктов)
+• Важные детали, где это уместно
+• Используй эмодзи для лучшего восприятия
 
 {content}
