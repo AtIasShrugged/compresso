@@ -39,9 +39,7 @@
 {% block scripts %}
 <script>
 function viewSummary(id) {
-    // For now, just go back to home
-    // In a full implementation, this would show the specific summary
-    window.location.href = '/';
+    window.location.href = `/summary/${id}`;
 }
 </script>
 {% endblock %}

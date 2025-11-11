@@ -183,6 +183,25 @@ async def history(request: Request):
     return templates.TemplateResponse("history.html", context)
 
 
+@router.get("/summary/{summary_id}", response_class=HTMLResponse)
+async def view_summary(request: Request, summary_id: str):
+    """View a specific summary by ID."""
+    require_auth(request)
+    
+    # Get summary from cache
+    result = await redis_cache.get(summary_id)
+    
+    if not result:
+        raise HTTPException(status_code=404, detail="Summary not found")
+    
+    context = {
+        "request": request,
+        "result": result,
+        **get_translations(request)
+    }
+    return templates.TemplateResponse("result.html", context)
+
+
 @router.get("/api/healthz")
 async def healthz():
     """Health check endpoint for Render."""

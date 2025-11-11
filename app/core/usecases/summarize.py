@@ -66,8 +66,9 @@ class SummarizeUseCase:
             meta=metadata
         )
         
-        # Cache the result
+        # Cache the result with both cache_key (hash) and UUID
         await self.cache_provider.set(cache_key, result)
+        await self.cache_provider.set(result.id, result)
         
         logger.info(f"Summarization completed: {result.id}")
         return result
