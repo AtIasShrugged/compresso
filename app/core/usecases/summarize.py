@@ -59,7 +59,7 @@ class SummarizeUseCase:
         # Create result
         result = SummaryResult(
             id=str(uuid.uuid4()),
-            mode=options.mode.value,
+            mode=options.mode,
             options=options,
             input_fingerprint=cache_key,
             content_md=summary_text,
