@@ -153,6 +153,19 @@ textarea { resize: vertical; font-family: inherit; }
 }
 .summary-header { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
 .summary-date { color: var(--text-secondary); font-size: 0.875rem; margin-left: auto; }
+.summary-source { margin-bottom: 0.75rem; }
+.source-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.875rem;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+.source-link:hover { opacity: 0.8; text-decoration: underline; }
 .summary-preview { color: var(--text-secondary); margin-bottom: 1rem; }
 
 /* Alerts */

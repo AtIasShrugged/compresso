@@ -15,6 +15,13 @@
                 <span class="badge">{{ summary.options.detail }}</span>
                 <span class="summary-date">{{ summary.created_at.strftime('%Y-%m-%d %H:%M') if summary.created_at else '' }}</span>
             </div>
+            {% if summary.source %}
+            <div class="summary-source">
+                <a href="{{ summary.source }}" target="_blank" rel="noopener noreferrer" class="source-link">
+                    🔗 {{ summary.source }}
+                </a>
+            </div>
+            {% endif %}
             <div class="summary-preview">
                 {{ summary.content_md[:200] }}...
             </div>
