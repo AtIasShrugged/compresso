@@ -13,6 +13,7 @@ class SummaryResult(BaseModel):
     options: SummaryOptions
     input_fingerprint: str = Field(description="Hash of input for deduplication")
     content_md: str = Field(description="Summary content in Markdown")
+    source: Optional[str] = Field(default=None, description="Source URL: article URL or video link")
     meta: dict[str, Any] = Field(default_factory=dict, description="Additional metadata (duration, timestamps, etc.)")
 
     class Config:

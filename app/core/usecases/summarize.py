@@ -56,6 +56,9 @@ class SummarizeUseCase:
         # Generate summary
         summary_text = await self.llm_client.summarize(text, options, prompt_template)
         
+        # Determine source URL
+        source = self._get_source_url(input_data, options, metadata)
+        
         # Create result
         result = SummaryResult(
             id=str(uuid.uuid4()),
@@ -63,6 +66,7 @@ class SummarizeUseCase:
             options=options,
             input_fingerprint=cache_key,
             content_md=summary_text,
+            source=source,
             meta=metadata
         )
         
@@ -107,6 +111,25 @@ class SummarizeUseCase:
         
         else:
             raise ValueError(f"Unsupported mode: {options.mode}")
+    
+    def _get_source_url(self, input_data: str, options: SummaryOptions, metadata: dict) -> str | None:
+        """Get source URL based on mode.
+        
+        Args:
+            input_data: Input text/URL/video_id
+            options: Summarization options
+            metadata: Metadata dict with additional info
+            
+        Returns:
+            Source URL or None for text mode
+        """
+        if options.mode == SummaryMode.URL:
+            return input_data
+        elif options.mode == SummaryMode.YOUTUBE:
+            return f"https://www.youtube.com/watch?v={input_data}"
+        else:
+            # TEXT mode - no source
+            return None
     
     def _generate_cache_key(self, input_data: str, options: SummaryOptions) -> str:
         """Generate cache key from input and options.
