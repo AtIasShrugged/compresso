@@ -58,7 +58,15 @@ class YouTubeProvider:
             return transcript, metadata
         except (TranscriptsDisabled, NoTranscriptFound) as e:
             logger.warning(f"No transcript available via API: {e}, falling back to Whisper")
+            if self.whisper_mode == "disabled":
+                raise ValueError(
+                    f"No transcript available for this video and Whisper is disabled. "
+                    f"Enable Whisper in settings or choose a video with captions."
+                ) from e
             return await self._get_transcript_whisper(video_id)
+        except Exception as e:
+            logger.error(f"Unexpected error getting transcript via API: {e}")
+            raise
     
     async def _get_transcript_api(self, video_id: str) -> tuple[str, dict]:
         """Get transcript using youtube-transcript-api.
@@ -131,15 +139,25 @@ class YouTubeProvider:
                 }],
                 'outtmpl': str(audio_path.with_suffix('')),
                 'quiet': True,
+                'no_warnings': True,
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
             }
             
             loop = asyncio.get_event_loop()
-            await loop.run_in_executor(
-                None,
-                self._download_audio,
-                video_id,
-                ydl_opts
-            )
+            try:
+                await loop.run_in_executor(
+                    None,
+                    self._download_audio,
+                    video_id,
+                    ydl_opts
+                )
+            except Exception as e:
+                logger.error(f"Failed to download audio: {e}")
+                raise ValueError(
+                    f"Could not download video audio. This may be due to YouTube restrictions. "
+                    f"Try a different video or check if Whisper is properly configured."
+                ) from e
             
             # Transcribe with Whisper
             if self.whisper_mode == "local":
