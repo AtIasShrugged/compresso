@@ -25,6 +25,8 @@ class RedisCache:
                 encoding="utf-8",
                 decode_responses=True
             )
+            # Verify Redis is available
+            await self._client.ping()
             logger.info(f"Connected to Redis: {self.redis_url}")
     
     async def disconnect(self) -> None:
